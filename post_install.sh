@@ -10,41 +10,41 @@ else
 	sudo apt-get install dialog
 	cmd=(dialog --separate-output --checklist "Please Select Software you want to install:" 22 76 16)
 	options=(1 "Curl" off
-		 2 "OBS (Open Broadcast Software)" off
-		 3 "MC" off
-		 4 "Guake terminal" off
-		 5 "Git" off
-		 6 "visualvm" off
-		 7 "OpenJDK 8" off
-		 8 "Gradle" off
-		 9 "Gimp" off
-		10 "VLC Media Player" off
-		11 "Xclip (copy to clipboard from cmd)" off
-		12 "Google Chrome" off
-		13 "Gnome shell extension, Chrome extension" off
-		14 "Gnome tweak tool" off
-		15 "Paper GTK Theme" off
-		16 "Arch Theme" off
-		17 "Arc Icons" off
-		18 "Numix Icons" off
-		19 "Multiload Indicator" off
-		20 "Pensor" off
-		21 "Netspeed Indicator" off
-		22 "Generate SSH Keys" off
-		23 "Ruby" off
-		24 "Sass" off
-		25 "Vnstat" off
-		26 "Webpack" off
-		27 "Grunt" off
-		28 "Gulp" off
-		29 "Net utils (nethogs, traceroute)" off
-		30 "Postman (REST tester)" off
-		31 "Typora (text editor)" off
-		32 "Atom (text editor)" off
-		33 "Skype" off
-		34 "Docker" off
-		35 "Net tools (ifconfig)" off
-		36 "Samba" off
+     2 "OBS (Open Broadcast Software)" off
+     3 "MC" off
+     4 "Guake terminal" off
+     5 "Git" off
+     6 "visualvm" off
+     7 "OpenJDK 8" off
+     8 "Gradle" off
+     9 "Gimp" off
+    10 "VLC Media Player" off
+    11 "Xclip (copy to clipboard from cmd)" off
+    12 "Google Chrome" off
+    13 "Gnome shell extension, Chrome extension" off
+    14 "Gnome tweak tool" off
+    15 "Paper GTK Theme" off
+    16 "Arch Theme" off
+    17 "Arc Icons" off
+    18 "Numix Icons" off
+    19 "Multiload Indicator" off
+    20 "Pensor" off
+    21 "Netspeed Indicator" off
+    22 "Generate SSH Keys" off
+    23 "Ruby" off
+    24 "Sass" off
+    25 "Vnstat" off
+    26 "Webpack" off
+    27 "Grunt" off
+    28 "Gulp" off
+    29 "Net utils (nethogs, traceroute)" off
+    30 "Postman (REST tester)" off
+    31 "Typora (text editor)" off
+    32 "Atom (text editor)" off
+    33 "Skype" off
+    34 "Docker" off
+    35 "Net tools (ifconfig)" off
+    36 "Samba" off
     37 "gksudo (run GUI app as SU)" off
     38 "VirtualBox (+Extension pack)" off
     39 "Remmina (RDP)" off
@@ -64,10 +64,10 @@ else
     70 "Gnome Shell Ext: TaskBar" off
     90 "" off
     91 "For personal use:" off
-		92 "Sublime" off
-		93 "Telegram" off
-		94 "Ubuntu Restricted Extras" off
-		95 "Teamiewer" off
+    92 "Sublime" off
+    93 "Telegram" off
+    94 "Ubuntu Restricted Extras" off
+    95 "Teamiewer" off
     96 "unar (extract rar with passwords)" off)
 		choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
 		clear
