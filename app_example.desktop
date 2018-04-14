@@ -1,0 +1,9 @@
+#Remove this line: edit and copy this file in /usr/share/applications
+[Desktop Entry]
+Encoding=UTF-8
+Name=Flash player
+Comment=standalone flash player for debug
+Exec=/opt/flash_player_sa/flashplayer
+Terminal=false
+Type=Application
+Categories=Utility;Application;
