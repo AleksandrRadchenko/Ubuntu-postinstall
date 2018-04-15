@@ -30,7 +30,8 @@ else
     19 "Multiload Indicator" off
     20 "Pensor" off
     21 "Netspeed Indicator" off
-    22 "Generate SSH Keys" off
+    22 "OpenSSH" off
+    22.1 "Generate SSH Keys" off
     23 "Ruby" off
     24 "Sass" off
     25 "Vnstat" off
@@ -166,7 +167,10 @@ else
 			apt-get update
 			apt install indicator-netspeed-unity -y
 			;;
-		22) echo "Generating SSH keys"
+    22) echo "Installing OpenSSH"
+    apt install openssh-server -y
+    ;;
+    22.1) echo "Generating SSH keys"
 			ssh-keygen -t rsa -b 4096
 			;;
 		23) echo "Installing Ruby"
