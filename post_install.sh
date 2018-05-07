@@ -12,6 +12,7 @@ else
 	options=(1 "Curl" off
      2 "OBS (Open Broadcast Software)" off
      3 "MC" off
+     3.1 "Double commander" off
      4 "Guake terminal" off
      5 "Git" off
      6 "visualvm" off
@@ -87,7 +88,9 @@ else
 		3)	echo "Installing MC"
 			apt-get install mc -y
 			;;
-
+    3.1) echo "Installing Double commander"
+      apt install doublecmd-gtk -y
+      ;;
 		4)	echo "Installing Guake"
 			apt-get install guake -y
 			;;
@@ -113,8 +116,8 @@ else
 		8)  echo "Installing Gradle"
 			apt install gradle -y
 			;;
-		9)  echo "Installing Gimp"
-			apt install gimp -y
+		9)  echo "Installing Gimp, plugin-registry"
+			apt install gimp gimp-plugin-registry -y
 			;;
 		10) echo "Installing VLC Media Player"
 			apt install vlc -y
