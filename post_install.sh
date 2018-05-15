@@ -41,6 +41,7 @@ else
     28 "Gulp" off
     29 "Net utils (nethogs, traceroute)" off
     30 "Postman (REST tester)" off
+    30.1 "Update Postman" off
     31 "Typora (text editor)" off
     32 "Atom (text editor)" off
     33 "Skype" off
@@ -75,6 +76,23 @@ else
 		clear
 		for choice in $choices
 	do
+    # FUNCTIONS - start
+    function install_postman() {
+      wget https://dl.pstmn.io/download/latest/linux64 -O postman.tar.gz
+      sudo tar -xzf postman.tar.gz -C /opt
+      rm postman.tar.gz
+      sudo ln -sf /opt/Postman/Postman /usr/bin/postman
+      echo "Adding link to Postman into launcher"
+      echo "[Desktop Entry]
+Encoding=UTF-8
+Name=Postman
+Exec=postman
+Icon=/opt/Postman/resources/app/assets/icon.png
+Terminal=false
+Type=Application
+Categories=Development;" > ~/.local/share/applications/postman.desktop
+    }
+    # FUNCTIONS - end
 		case $choice in
 		1)  echo "Installing Curl"
 			apt install curl -y
@@ -200,19 +218,20 @@ else
 			apt-get install traceroute -y
 			;;
 		30) echo "Installing Postman"
-      wget https://dl.pstmn.io/download/latest/linux64 -O postman.tar.gz
-      sudo tar -xzf postman.tar.gz -C /opt
-      rm postman.tar.gz
-      sudo ln -sf /opt/Postman/Postman /usr/bin/postman
-      echo "Adding link to Postman into launcher"
-      echo "[Desktop Entry]
-Encoding=UTF-8
-Name=Postman
-Exec=postman
-Icon=/opt/Postman/resources/app/assets/icon.png
-Terminal=false
-Type=Application
-Categories=Development;" > ~/.local/share/applications/postman.desktop
+      install_postman
+      ;;
+    30.1) echo "Updating Postman"
+      echo "As for 15.05.2018 Postman updates for 6.0.10 version. Update manually for latest."
+      read -p "Proceed update to 6.0.10 (17 Mar, 2018) version? (Y/n) " installOldVer
+      if [[ installOldVer =~ [Yy] ]]; then
+        echo "Removing /opt/Postman dir..."
+        sudo rm -rf /opt/Postman
+        echo "Done"
+        echo "Installing Postman..."
+        install_postman
+      else
+        echo "Aborting."
+      fi
       ;;
 		31) echo "Installing Typora"
 			apt-key adv --keyserver keyserver.ubuntu.com --recv-keys BA300B7755AFCFAE
@@ -230,7 +249,7 @@ Categories=Development;" > ~/.local/share/applications/postman.desktop
 		33) echo "Installing Skype For Linux"
 			apt install curl apt-transport-https -y
 			curl https://repo.skype.com/data/SKYPE-GPG-KEY | apt-key add -
-			echo "deb https://repo.skype.com/deb stable main" | tee /etc/apt/sources.list.d/skype-stable.list
+			echo "deb https://repo.skype.com/deb stable main" | tee /etc/apt/sources.list.d/skypeforlinux.list
 			apt update
 			apt install skypeforlinux -y
 			;;
