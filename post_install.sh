@@ -223,7 +223,7 @@ Categories=Development;" > ~/.local/share/applications/postman.desktop
     30.1) echo "Updating Postman"
       echo "As for 15.05.2018 Postman updates for 6.0.10 version. Update manually for latest."
       read -p "Proceed update to 6.0.10 (17 Mar, 2018) version? (Y/n) " installOldVer
-      if [[ installOldVer =~ [Yy] ]]; then
+      if [[ $installOldVer =~ [Yy] ]]; then
         echo "Removing /opt/Postman dir..."
         sudo rm -rf /opt/Postman
         echo "Done"
