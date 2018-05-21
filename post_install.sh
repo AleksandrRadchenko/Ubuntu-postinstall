@@ -9,8 +9,8 @@ else
 
 	sudo apt-get install dialog
   ubuntu_version=$(lsb_release -a | grep Release | grep -oE '[0-9]{1,3}.[0-9]{1,3}')
-  ubuntu_version_main=$(echo $ubuntu_version | grep -oP "\d{1,3}(?=.\d{1,3})")
-  ubuntu_version_sub=$(echo $ubuntu_version | grep -oP "(?<=$ubuntu_version_main.)\d{1,3}")
+  ubuntu_version_major=$(echo $ubuntu_version | grep -oP "\d{1,3}(?=.\d{1,3})")
+  ubuntu_version_minor=$(echo $ubuntu_version | grep -oP "(?<=$ubuntu_version_major.)\d{1,3}")
   echo "Detected Ubuntu version: $ubuntu_version"
 	cmd=(dialog --separate-output --checklist "Please Select Software you want to install:" 22 76 16)
 	options=(1 "Curl" off
@@ -102,7 +102,7 @@ Categories=Development;" > ~/.local/share/applications/postman.desktop
 			apt install curl -y
 			;;
 		2)  echo "Installing Obs"
-      if [[ $ubuntu_version_main -gt 17 ]]; then
+      if [[ $ubuntu_version_major -gt 17 ]]; then
         echo "Installing OBS from Ubuntu ppa (from 18.04 version)"
       else
         echo "Add ppa repository for OBS"
