@@ -8,6 +8,10 @@ else
 	apt-get update && sudo apt-get upgrade -y
 
 	sudo apt-get install dialog
+  ubuntu_version=$(lsb_release -a | grep Release | grep -oE '[0-9]{1,3}.[0-9]{1,3}')
+  ubuntu_version_main=$(echo $ubuntu_version | grep -oP "\d{1,3}(?=.\d{1,3})")
+  ubuntu_version_sub=$(echo $ubuntu_version | grep -oP "(?<=$ubuntu_version_main.)\d{1,3}")
+  echo "Detected Ubuntu version: $ubuntu_version"
 	cmd=(dialog --separate-output --checklist "Please Select Software you want to install:" 22 76 16)
 	options=(1 "Curl" off
      2 "OBS (Open Broadcast Software)" off
@@ -97,11 +101,15 @@ Categories=Development;" > ~/.local/share/applications/postman.desktop
 		1)  echo "Installing Curl"
 			apt install curl -y
 			;;
-
 		2)  echo "Installing Obs"
-			add-apt-repository ppa:obsproject/obs-studio -y
-			apt update
-			apt-get install obs-studio -y
+      if [[ $ubuntu_version_main -gt 17 ]]; then
+        echo "Installing OBS from Ubuntu ppa (from 18.04 version)"
+      else
+        echo "Add ppa repository for OBS"
+        add-apt-repository ppa:obsproject/obs-studio -y
+        apt update
+      fi
+      apt-get install obs-studio -y
 			;;
 		3)	echo "Installing MC"
 			apt-get install mc -y
@@ -330,7 +338,6 @@ Categories=Development;" > ~/.local/share/applications/postman.desktop
       ;;
     51) echo "Installing mssql tools"
       curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
-      ubuntu_version=$(lsb_release -a | grep Release | grep -oE '[0-9]{1,3}.[0-9]{1,3}')
       curl "https://packages.microsoft.com/config/ubuntu/$ubuntu_version/prod.list" | sudo tee /etc/apt/sources.list.d/msprod.list
       apt-get update
       ACCEPT_EULA=y #Doesn't work :(
