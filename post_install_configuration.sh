@@ -11,7 +11,10 @@ options=(1 "Work folder alias" off
   3 "Nautilus: backspace shortcut" off
   4 "ecryptfs: Make dir ~/MD/pack for " off
   5 "VLC: disable controls in fullscreen" off
-  6 "VisualVM plugins (manual)" off)
+  6 "VisualVM plugins (manual)" off
+  7 "Copy scripts to $HOME/bin" off
+  8 "Enable editing the result of shell history substitutions" off
+  9 "Another" off)
   choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
   clear
   for choice in $choices
@@ -21,12 +24,12 @@ do
     #Bash
     # Make an alias to the poject. Type "work" in termintal to change dir.
     echo "Set alias for work folder"
-    if [[ -e $HOME/.bashrc ]]
+    if [[ -e $HOME/.bashrc ]] # File exists
     then
-      if [[ ! -z $workFolder ]]
+      if [[ ! -z $workFolder ]] # Length of string $workFolder is not 0
       then
         grep_out=$(grep -E 'alias work' $HOME/.bashrc)
-        if [[ $? -eq 0 ]]
+        if [[ $? -eq 0 ]] # exit status of the previously run command is 0
           then
             echo "Found 'work' alias in $HOME/.bashrc. Replacing."
             sed -i -E "s|alias work.*$|alias work='cd $workFolder'|" $HOME/.bashrc
@@ -103,6 +106,28 @@ do
     ;;
   7)
     echo "Please, manually copy scripts to ~/bin"
+    ;;
+  8)
+    echo "Enable editing the result of history substitutions instead of executing it."
+    function setOptionInBashRc() {
+      printf "\n# Edit the result of history substitutions instead of executing it\nshopt -s histverify\n">>$HOME/.bashrc
+    }
+    if [[ -e $HOME/.bashrc ]] # File exists
+    then
+      grep_out=$(grep -E 'shopt -s histverify' $HOME/.bashrc)
+      if [[ $? -eq 0 ]] # exit status of the previously run command is 0
+      then
+        echo "Setting already set. Exiting."
+      else
+        setOptionInBashRc
+      fi
+    else
+      echo "WARN: no .bashrc found, creating."
+      setOptionInBashRc
+    fi
+    ;;
+  9)
+    echo "Another userful configuration here :D"
     ;;
   esac
 done
