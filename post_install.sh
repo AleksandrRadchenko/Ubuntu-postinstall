@@ -55,6 +55,7 @@ else
     37 "gksudo (run GUI app as SU)" off
     38 "VirtualBox (+Extension pack)" off
     39 "Remmina (RDP)" off
+    39.1 "XRDP (Unity not supported)" off
     40 "ncdu (disk usage util)" off
     41 "ecryptfs-utils" off
     42 "keepass2" off
@@ -292,6 +293,9 @@ Categories=Development;" > ~/.local/share/applications/postman.desktop
 			apt-get update
 			apt-get install remmina remmina-plugin-rdp -y
 			;;
+    39.1) echo "Installing XRDP"
+      apt-get install xrdp -y
+      ;;
     40) echo "Installing ncdu"
       apt-get install ncdu -y
       ;;
