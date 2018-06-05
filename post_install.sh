@@ -14,7 +14,7 @@ else
   echo "Detected Ubuntu version: $ubuntu_version"
 	cmd=(dialog --separate-output --checklist "Please Select Software you want to install:" 22 76 16)
 	options=(1 "Curl" off
-     1.1 "HTTPie" off
+     1.1 "HTTPie (cURL-like tool for humans)" off
      2 "OBS (Open Broadcast Software)" off
      3 "MC" off
      3.1 "Double commander" off
