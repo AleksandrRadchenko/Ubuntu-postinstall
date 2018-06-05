@@ -14,6 +14,7 @@ else
   echo "Detected Ubuntu version: $ubuntu_version"
 	cmd=(dialog --separate-output --checklist "Please Select Software you want to install:" 22 76 16)
 	options=(1 "Curl" off
+     1.1 "HTTPie" off
      2 "OBS (Open Broadcast Software)" off
      3 "MC" off
      3.1 "Double commander" off
@@ -101,6 +102,9 @@ Categories=Development;" > ~/.local/share/applications/postman.desktop
 		case $choice in
 		1)  echo "Installing Curl"
 			apt install curl -y
+			;;
+		1.1)  echo "Installing HTTPie"
+			apt install httpie -y
 			;;
 		2)  echo "Installing Obs"
       if [[ $ubuntu_version_major -gt 17 ]]; then
