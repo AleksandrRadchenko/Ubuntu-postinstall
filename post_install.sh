@@ -37,7 +37,6 @@ else
     20 "Pensor" off
     21 "Netspeed Indicator" off
     22 "OpenSSH" off
-    22.1 "Generate SSH Keys" off
     23 "Ruby" off
     24 "Sass" off
     25 "Vnstat" off
@@ -201,12 +200,9 @@ Categories=Development;" > ~/.local/share/applications/postman.desktop
 			apt-get update
 			apt install indicator-netspeed-unity -y
 			;;
-    22) echo "Installing OpenSSH"
-    apt install openssh-server -y
-    ;;
-    22.1) echo "Generating SSH keys"
-			ssh-keygen -t rsa -b 4096
-			;;
+        22) echo "Installing OpenSSH"
+            apt install openssh-server -y
+            ;;
 		23) echo "Installing Ruby"
 			apt install ruby-full -y
 			;;

@@ -14,7 +14,7 @@ options=(1 "Work folder alias" off
   6 "VisualVM plugins (manual)" off
   7 "Copy scripts to $HOME/bin" off
   8 "Enable editing the result of shell history substitutions" off
-  9 "Another" off
+  9 "Generate SSH Keys" off
   10 "Set mouse pointer speed" off)
   choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
   clear
@@ -128,8 +128,9 @@ do
     fi
     ;;
   9)
-    echo "Another userful configuration here :D"
-    ;;
+    echo "Generating SSH keys"
+	ssh-keygen -t rsa -b 4096
+	;;
   10)
     echo "Start setting mouse pointer speed"
     # https://unix.stackexchange.com/questions/90572/how-can-i-set-mouse-sensitivity-not-just-mouse-acceleration
