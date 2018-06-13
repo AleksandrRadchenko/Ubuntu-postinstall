@@ -55,7 +55,7 @@ else
     36 "Samba" off
     37 "gksudo (run GUI app as SU)" off
     38 "VirtualBox (+Extension pack)" off
-    39 "Remmina (RDP)" off
+    39 "Remmina (RDP) - for 17.10 or lower" off
     39.1 "XRDP (Unity not supported)" off
     40 "ncdu (disk usage util)" off
     41 "ecryptfs-utils" off

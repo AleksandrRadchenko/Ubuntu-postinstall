@@ -3,6 +3,7 @@
 ##### Tested
 - on Ubuntu 17.10
 - on Ubuntu 18.04: curl, OBS, DC, guake
+- on Kubuntu 18.04: Chrome, Telegram, DC
 
 ##### Usage
 - `app_example.desktop` - template for Gnome desktop app shortcut,
