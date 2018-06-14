@@ -24,6 +24,7 @@ else
      7 "OpenJDK 8" off
      8 "Gradle" off
      9 "Gimp" off
+     9.1 "Flameshot (screenshot)" off
     10 "VLC Media Player" off
     11 "Xclip (copy to clipboard from cmd)" off
     12 "Google Chrome" off
@@ -149,6 +150,11 @@ Categories=Development;" > ~/.local/share/applications/postman.desktop
 		9)  echo "Installing Gimp, plugin-registry"
 			apt install gimp gimp-plugin-registry -y
 			;;
+    9.1) echo "Installing Flameshot"
+      apt install flameshot -y
+      echo "Readme: https://github.com/lupoDharkael/flameshot"
+      echo "Shortcuts config: https://github.com/lupoDharkael/flameshot#keyboard-shortcuts"
+      ;;
 		10) echo "Installing VLC Media Player"
 			apt install vlc -y
 			;;
