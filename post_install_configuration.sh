@@ -4,6 +4,34 @@ gitUserName="User name"
 gitUserEmail=user@emal.com
 workFolder=/home/$USER
 
+# FUNCTIONS BLOCK START
+function setDeviceConfigInXinputrc() {
+  config=$HOME/.xinputrc
+  setting_regexp="^.*$device_name.*$"
+  echo "Start setting pointer speed for: $device_name"
+  #https://unix.stackexchange.com/questions/90572/how-can-i-set-mouse-sensitivity-not-just-mouse-acceleration
+  echo "Configure for every session of current user"
+  if [[ -e $config ]]
+  then
+      grep_out=$(grep -E "$setting_regexp" $config)
+      if [[ $? -eq 0 ]]
+        then
+          echo "Pattern FOUND, replacing '$grep_out' for '$setting_new'"
+          sed -i -E "s/$setting_regexp/$setting_new/" $config
+        else
+          echo "Pattern '$setting_regexp' NOT FOUND in $config"
+          echo "$setting_new" >> $config
+          echo "Added '$setting_new' setting to $config"
+      fi
+  else
+    echo "Config NOT FOUND at $config. Creating..."
+    echo $setting_new > $config
+  fi
+  echo "Done configuration"
+  echo "Set mouse pointer speed for current X session"
+  eval "$setting_new"
+}
+# FUNCTIONS BLOCK END
 
 cmd=(dialog --separate-output --checklist "Please Select options to apply:" 22 76 16)
 options=(1 "Work folder alias" off
@@ -15,7 +43,8 @@ options=(1 "Work folder alias" off
   7 "Copy scripts to $HOME/bin" off
   8 "Enable editing the result of shell history substitutions" off
   9 "Generate SSH Keys" off
-  10 "Set mouse pointer speed" off)
+  10 "Set mouse pointer speed for: Logitech USB Optical Mouse" off
+  11 "Set mouse pointer speed for: MX Anywhere 2S" off)
   choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
   clear
   for choice in $choices
@@ -132,31 +161,16 @@ do
 	ssh-keygen -t rsa -b 4096
 	;;
   10)
-    echo "Start setting mouse pointer speed"
-    # https://unix.stackexchange.com/questions/90572/how-can-i-set-mouse-sensitivity-not-just-mouse-acceleration
-    echo "Configure setting mouse pointer speed for every session of current user"
-    config=$HOME/.xinputrc
-    setting_regexp='^.*Coordinate Transformation Matrix.*$'
-    setting_new='xinput set-prop "Logitech USB Optical Mouse" "Coordinate Transformation Matrix" 0.770000, 0.000000, 0.000000, 0.000000, 0.770000, 0.000000, 0.000000, 0.000000, 1.000000'
-    if [[ -e $config ]]
-    then
-        grep_out=$(grep -E "$setting_regexp" $config)
-        if [[ $? -eq 0 ]]
-          then
-            echo "Pattern FOUND, replacing '$grep_out' for '$setting_new'"
-            sed -i -E "s/$setting_regexp/$setting_new/" $config
-          else
-            echo "Pattern '$setting_regexp' NOT FOUND in $config"
-            echo "$setting_new" >> $config
-            echo "Added '$setting_new' setting to $config"
-        fi
-    else
-      echo "Config NOT FOUND at $config. Creating..."
-      echo $setting_new > $config
-    fi
-    echo "Done configuration"
-    echo "Set mouse pointer speed for current X session"
-    eval "$setting_new"
-    ;;
+    echo "DEVICE MUST BE PLUGGED IN TO BE CONFIGURED PROPERLY"
+    device_name="pointer:Logitech USB Optical Mouse"
+    setting_new="xinput set-prop '$device_name' 'Coordinate Transformation Matrix' 0.770000, 0.000000, 0.000000, 0.000000, 0.770000, 0.000000, 0.000000, 0.000000, 1.000000"
+    setDeviceConfigInXinputrc
+  ;;
+  11)
+    echo "DEVICE MUST BE PLUGGED IN TO BE CONFIGURED PROPERLY"
+    device_name="pointer:MX Anywhere 2S"
+    setting_new="xinput set-prop '$device_name' 'Coordinate Transformation Matrix' 1.100000, 0.000000, 0.000000, 0.000000, 1.100000, 0.000000, 0.000000, 0.000000, 1.000000"
+    setDeviceConfigInXinputrc
+  ;;
 esac
 done
